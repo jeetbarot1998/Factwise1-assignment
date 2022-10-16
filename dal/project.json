@@ -1,0 +1,44 @@
+{
+    "user_data": [
+        {
+            "0": {
+                "name": "string",
+                "description": "string",
+                "team_id": "string",
+                "creation_time": "2022-10-16 12:52:56",
+                "tasks": {
+                    "0": {
+                        "title": "string",
+                        "description": "string",
+                        "creation_time": "2022-10-16 12:54:01",
+                        "status": "IN_PROGRESS"
+                    },
+                    "1": {
+                        "title": "string2",
+                        "description": "string",
+                        "creation_time": "2022-10-16 12:54:19",
+                        "status": "OPEN"
+                    },
+                    "2": {
+                        "title": "string3",
+                        "description": "string",
+                        "creation_time": "2022-10-16 12:54:19",
+                        "status": "COMPLETE"
+                    }
+                },
+                "latest_task_id": 3,
+                "status": "OPEN"
+            },
+            "1": {
+                "name": "string2",
+                "description": "string",
+                "team_id": "string",
+                "creation_time": "2022-10-16 12:53:16",
+                "tasks": {},
+                "latest_task_id": 0,
+                "status": "OPEN"
+            }
+        }
+    ],
+    "latest_id": 2
+}
