@@ -30,7 +30,7 @@ def create_new_board(user_details):
         for frame in traceback.extract_tb(sys.exc_info()[2]):
             fname, lineno, fn, text = frame
             print(
-                f"Error in create_new_board {text} on line {lineno} with error as {err_msg} ")
+                f"Error in creating new board {text} on line {lineno} with error as {err_msg} ")
         latest_id = -1
     finally:
         return latest_id
@@ -68,7 +68,7 @@ def add_task_to_board_by_name(task_details):
         for frame in traceback.extract_tb(sys.exc_info()[2]):
             fname, lineno, fn, text = frame
             error = (
-                f"Error in finding user {text} on line {lineno} with error as {err_msg} ")
+                f"Error in addig tasks to board by name {text} on line {lineno} with error as {err_msg} ")
         return error
 
 
@@ -88,7 +88,7 @@ def update_tasks_status(status_data):
         for frame in traceback.extract_tb(sys.exc_info()[2]):
             fname, lineno, fn, text = frame
             error = (
-                f"Error in finding user {text} on line {lineno} with error as {err_msg} ")
+                f"Error in updating tasks status {text} on line {lineno} with error as {err_msg} ")
         return error
 
 
@@ -98,9 +98,7 @@ def close_board(board_details):
             feeds = json.load(readfeedsjson)
             users_data = feeds['user_data']
             board = users_data[0][str(board_details['board_id'])]
-            print('board==============',board)
             task_status_list = [each_task['status'] for each_task in list(board['tasks'].values())]
-            print('task_status_list==========',task_status_list)
             boolean_task_status_list = []
             for each_status in task_status_list:
                 if each_status in ["COMPLETE"]:
@@ -120,9 +118,24 @@ def close_board(board_details):
     except Exception as err_msg:
         for frame in traceback.extract_tb(sys.exc_info()[2]): 
             fname, lineno, fn, text = frame 
-            error = (f"Error in finding user {text} on line {lineno} with error as {err_msg} ")
+            error = (f"Error in closing board {text} on line {lineno} with error as {err_msg} ")
         return error
 
+
+def get_all_active_boards_by_id(board_details):
+    try:
+        with open('./dal/project.json', mode='r', encoding='utf-8') as readfeedsjson:
+            feeds = json.load(readfeedsjson)
+            users_data = feeds['user_data']
+            board = users_data[0][str(board_details['board_id'])]
+            task_status_list = [each_task for each_task in list(board['tasks'].values()) if each_task['status'] == "OPEN"]
+            return task_status_list
+
+    except Exception as err_msg:
+        for frame in traceback.extract_tb(sys.exc_info()[2]): 
+            fname, lineno, fn, text = frame 
+            error = (f"Error in finding active board {text} on line {lineno} with error as {err_msg} ")
+        return error
 
 def instantiate_files():
     path = os.listdir(os.getcwd() + '/dal')

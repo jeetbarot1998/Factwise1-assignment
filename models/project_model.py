@@ -27,7 +27,7 @@ update_task_status_by_id = api.model(
     }
 )
 
-close_board_by_id = api.model(
+board_by_id_modal = api.model(
     'close_board_by_id', {
         "board_id" : fields.String(attribute='name')
     }

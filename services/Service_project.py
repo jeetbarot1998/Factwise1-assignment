@@ -1,8 +1,8 @@
 from flask_restx import Resource
 from pytz import timezone
-from models.project_model import api, create_board, add_task_toboard_by_id, update_task_status_by_id, close_board_by_id
+from models.project_model import api, create_board, add_task_toboard_by_id, update_task_status_by_id, board_by_id_modal
 import datetime
-from dal.project_query import create_new_board, instantiate_files, add_task_to_board_by_name, update_tasks_status, close_board
+from dal.project_query import create_new_board, instantiate_files, add_task_to_board_by_name, update_tasks_status, get_all_active_boards_by_id, close_board
 
 @api.route('/create_board')
 class CreateUser(Resource):
@@ -60,13 +60,25 @@ class UpdateTaskStaus(Resource):
 
 @api.route('/close_board')
 class CloseBoard(Resource):
-    @api.expect(close_board_by_id)
+    @api.expect(board_by_id_modal)
     @api.doc(response={200: 'Success', 400: 'Validation Error'})
     @api.doc(security='apikey')
     @api.response('default', 'Error')
     def post(self):
         res = close_board(api.payload)
         return res
+
+
+@api.route('/list_boards')
+class ListBoard(Resource):
+    @api.expect(board_by_id_modal)
+    @api.doc(response={200: 'Success', 400: 'Validation Error'})
+    @api.doc(security='apikey')
+    @api.response('default', 'Error')
+    def post(self):
+        res = get_all_active_boards_by_id(api.payload)
+        return res
+
 
 @api.route('/instantiate_files')
 class IinstantiateFiles(Resource):
