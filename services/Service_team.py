@@ -12,6 +12,10 @@ class CreateTeam(Resource):
     @api.doc(security='apikey')
     @api.response('default', 'Error')
     def post(self):
+        if len(api.payload['name']) > 64:
+            return "board name can be max 64 characters", 400
+        if len(api.payload['description']) > 128:
+            return "description can be max 128 characters", 400
         user_details = {
             "name" : api.payload['name'],
             "description" : api.payload['description'],

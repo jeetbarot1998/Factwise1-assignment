@@ -12,6 +12,10 @@ class CreateUser(Resource):
     @api.doc(security='apikey')
     @api.response('default', 'Error')
     def post(self):
+        if len(api.payload['name']) > 64:
+            return "board name can be max 64 characters", 400
+        if len(api.payload['display_name']) > 64:
+            return "Display Name can be max 64 characters", 400
         user_details = {
             "name" : api.payload['name'],
             "display_name" : api.payload['display_name'],
@@ -55,6 +59,10 @@ class UpdateUser(Resource):
     @api.doc(security='apikey')
     @api.response('default', 'Error')
     def patch(self):
+        if len(api.payload['user']['name']) > 64:
+            return "board name can be max 64 characters", 400
+        if len(api.payload['user']['display_name']) > 128:
+            return "Display Name can be max 128 characters", 400
         response = update_user_by_id(api.payload)
         return response
 
